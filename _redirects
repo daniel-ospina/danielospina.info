@@ -1,0 +1,49 @@
+# Legacy Squarespace URLs -> new paths
+# (keeps inbound links and search results working after the migration)
+
+/home            /about/        301
+/home.html       /about/        301
+/home-1          /              301
+/home-1.html     /              301
+
+/book-me         /book/         301
+/book-me.html    /book/         301
+/contact-bedford /book/         301
+/contact-bedford.html /book/    301
+
+/speaking.html   /speaking/     301
+/newsletter.html /newsletter/   301
+
+/new-blog        /writing/      301
+/new-blog.html   /writing/      301
+/new-blog/       /writing/      301
+/new-blog/tag/*  /writing/      301
+
+/cipd            /book/         301
+/cipd.html       /book/         301
+
+# Squarespace template leftovers that were never real pages
+/take-action     /              301
+/take-action.html /             301
+/projects-bedford /             301
+/projects-bedford.html /        301
+/home-alt-bedford /             301
+/home-alt-bedford.html /        301
+
+# Individual posts (Squarespace dated paths -> clean slugs)
+/new-blog/2018/9/6/2-simple-hacks-to-delegate-and-avoid-miscommunication       /writing/2-simple-hacks-to-delegate-and-avoid-miscommunication/      301
+/new-blog/2018/9/6/2-simple-hacks-to-delegate-and-avoid-miscommunication.html  /writing/2-simple-hacks-to-delegate-and-avoid-miscommunication/      301
+/new-blog/2018/9/6/3-layers-to-design-your-company-culture                     /writing/3-layers-to-design-your-company-culture/                    301
+/new-blog/2018/9/6/3-layers-to-design-your-company-culture.html                /writing/3-layers-to-design-your-company-culture/                    301
+/new-blog/2018/9/6/beyond-design-thinking-the-systemic-design-thinking-framework      /writing/beyond-design-thinking-the-systemic-design-thinking-framework/      301
+/new-blog/2018/9/6/beyond-design-thinking-the-systemic-design-thinking-framework.html /writing/beyond-design-thinking-the-systemic-design-thinking-framework/      301
+/new-blog/2018/9/6/beyond-teams-how-to-collaborate-amidst-constantchange       /writing/beyond-teams-how-to-collaborate-amidst-constantchange/      301
+/new-blog/2018/9/6/beyond-teams-how-to-collaborate-amidst-constantchange.html  /writing/beyond-teams-how-to-collaborate-amidst-constantchange/      301
+/new-blog/2018/9/6/brands-in-a-polarised-society-from-celebrities-to-philosophies      /writing/brands-in-a-polarised-society-from-celebrities-to-philosophies/      301
+/new-blog/2018/9/6/brands-in-a-polarised-society-from-celebrities-to-philosophies.html /writing/brands-in-a-polarised-society-from-celebrities-to-philosophies/      301
+/new-blog/2018/9/6/ethical-disruption-is-possible                              /writing/ethical-disruption-is-possible/                             301
+/new-blog/2018/9/6/ethical-disruption-is-possible.html                         /writing/ethical-disruption-is-possible/                             301
+/new-blog/2018/9/6/governing-complex-collaborations-a-framework                /writing/governing-complex-collaborations-a-framework/               301
+/new-blog/2018/9/6/governing-complex-collaborations-a-framework.html           /writing/governing-complex-collaborations-a-framework/               301
+/new-blog/2018/9/6/how-to-scale-an-organisation-and-not-lose-your-job-trying   /writing/how-to-scale-an-organisation-and-not-lose-your-job-trying/  301
+/new-blog/2018/9/6/how-to-scale-an-organisation-and-not-lose-your-job-trying.html /writing/how-to-scale-an-organisation-and-not-lose-your-job-trying/ 301
