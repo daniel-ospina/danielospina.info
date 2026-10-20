@@ -23,9 +23,6 @@ OUT="${OUT:-/tmp/dist-deploy}"
 PROJECT="${PROJECT:-danielspina-info}"
 BRANCH="${BRANCH:-main}"
 
-CSS_HASH="$(shasum -a 256 "$ROOT/assets/css/site.css" | cut -c1-10)"
-JS_HASH="$(shasum -a 256 "$ROOT/assets/js/site.js" | cut -c1-10)"
-
 rm -rf "$OUT"
 mkdir -p "$OUT"
 rsync -a \
@@ -33,9 +30,15 @@ rsync -a \
   --exclude='README.md' --exclude='.gitignore' --exclude='.wrangler' \
   "$ROOT/" "$OUT/"
 
-python3 - "$OUT" "$CSS_HASH" "$JS_HASH" <<'PY'
-import os, sys
-out, css_hash, js_hash = sys.argv[1], sys.argv[2], sys.argv[3]
+python3 - "$ROOT" "$OUT" <<'PY'
+import hashlib, os, sys
+root, out = sys.argv[1], sys.argv[2]
+
+def digest(rel):
+    with open(os.path.join(root, rel), 'rb') as fh:
+        return hashlib.sha256(fh.read()).hexdigest()[:10]
+
+css_hash, js_hash = digest('assets/css/site.css'), digest('assets/js/site.js')
 subs = [('/assets/css/site.css', css_hash), ('/assets/js/site.js', js_hash)]
 touched = 0
 for dirpath, _dirs, files in os.walk(out):
@@ -46,8 +49,8 @@ for dirpath, _dirs, files in os.walk(out):
         with open(path, encoding='utf-8') as fh:
             html = fh.read()
         new = html
-        for url, digest in subs:
-            new = new.replace(url + '"', url + '?v=' + digest + '"')
+        for url, fingerprint in subs:
+            new = new.replace(url + '"', url + '?v=' + fingerprint + '"')
         if new != html:
             with open(path, 'w', encoding='utf-8') as fh:
                 fh.write(new)
