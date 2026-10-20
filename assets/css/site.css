@@ -741,7 +741,7 @@ hr { border: 0; height: 1px; background: var(--rule); margin: 3.5rem 0; }
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(95deg, rgba(12,10,9,.90) 0%, rgba(12,10,9,.72) 38%, rgba(12,10,9,.18) 62%, rgba(12,10,9,0) 82%);
+  background: linear-gradient(95deg, rgba(12,10,9,.86) 0%, rgba(12,10,9,.58) 34%, rgba(12,10,9,.12) 62%, rgba(12,10,9,0) 84%);
 }
 .quote-band blockquote {
   position: absolute;
