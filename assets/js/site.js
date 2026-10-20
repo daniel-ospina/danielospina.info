@@ -25,13 +25,15 @@
 
   /* ---- forms ----
      To make a form submit for real, put the provider's URL on the <form> as
-     data-endpoint="https://…". Until then the form does NOT pretend to send:
-     it tells the visitor the honest thing and points at a channel that works. */
+     data-endpoint="https://…". Until then the form does not pretend to send:
+     it hands the visitor a working channel instead. */
+  var CONTACT_EMAIL = 'daniel.ospinabotero@gmail.com';
+
   var FALLBACK = {
     contact: {
-      text: 'This form isn\u2019t connected yet \u2014 the fastest way to reach me is LinkedIn.',
-      href: 'https://www.linkedin.com/in/daniel-ospina-77976985',
-      label: 'Message me on LinkedIn'
+      text: 'This form isn\u2019t connected to a mail service yet \u2014 sending opens your email app instead, addressed to',
+      href: 'mailto:' + CONTACT_EMAIL,
+      label: CONTACT_EMAIL
     },
     newsletter: {
       text: 'The newsletter signup isn\u2019t connected yet.',
@@ -54,6 +56,18 @@
     form.addEventListener('submit', function (e) {
       e.preventDefault();
       var fb = FALLBACK[kind];
+      var data = new FormData(form);
+      var lines = [];
+      data.forEach(function (v, k) { if (v) lines.push(k + ': ' + v); });
+
+      if (kind === 'contact') {
+        /* a mailto: link is a real, working channel — take them there */
+        var subject = 'Website enquiry';
+        var href = fb.href + '?subject=' + encodeURIComponent(subject) +
+                   '&body=' + encodeURIComponent(lines.join('\n'));
+        window.location.href = href;
+      }
+
       if (!note || !fb) return;
       note.textContent = '';
       note.appendChild(document.createTextNode(fb.text + ' '));
@@ -65,7 +79,6 @@
         a.target = '_blank';
       }
       note.appendChild(a);
-      a.focus();
     });
   });
 })();

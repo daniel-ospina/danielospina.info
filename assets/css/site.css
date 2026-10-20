@@ -556,6 +556,14 @@ hr { border: 0; height: 1px; background: var(--rule); margin: 3.5rem 0; }
 }
 .field textarea { min-height: 9rem; resize: vertical; }
 .form__note { font-size: .8125rem; color: var(--ink-faint); margin: 0; }
+.form__direct {
+  font-size: .875rem;
+  color: var(--ink-muted);
+  margin: 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+}
+.form__direct a { color: var(--ink); font-weight: 500; }
 
 /* --------------------------------------------------------- callout box --- */
 .callout {

@@ -72,9 +72,11 @@ they reserve space and stop the page jumping as images load.
 
 ## Forms
 
-Both forms (`/book/`, `/newsletter/`) are **not connected to a provider yet**.
-Until they are, submitting shows an honest message pointing at LinkedIn rather
-than pretending to send. To connect one, add the endpoint to the `<form>`:
+`/book/` lists the address directly (`daniel.ospinabotero@gmail.com`) and, with no
+mail provider connected, the form opens the visitor's mail app pre-filled rather
+than pretending to send. `/newsletter/` has no list behind it yet, so it says so.
+
+To connect the form to a provider, add the endpoint to the `<form>`:
 
 ```html
 <form class="form" data-form="contact" method="post" action=""
@@ -105,7 +107,12 @@ python3 -m http.server 8907
 
 ## Outstanding
 
-- [ ] **Contact + newsletter endpoints.** See *Forms* above.
+- [ ] **Contact + newsletter endpoints.** The address works today via `mailto:`;
+      a hosted form (Formspree, Web3Forms, Basin…) would avoid the mail-app hop
+      and give spam filtering. See *Forms* above.
+- [ ] **Decide whether the address stays public.** It is currently visible on
+      `/book/` as requested; a public Gmail address attracts spam. Hiding it is a
+      two-line change (drop the two mailto links, keep the form).
 - [ ] **Review the social links** in the footer and on `/book/` — they were
       carried over from the 2018 site (LinkedIn, Medium). Confirm they are
       current, and add anywhere else worth linking.
