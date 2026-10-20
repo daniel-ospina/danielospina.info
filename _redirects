@@ -1,6 +1,10 @@
 # Legacy Squarespace URLs -> new paths
 # (keeps inbound links and search results working after the migration)
 
+/blog            /writing/      301
+/blog.html       /writing/      301
+/blog/*          /writing/:splat 301
+
 /home            /about/        301
 /home.html       /about/        301
 /home-1          /              301
