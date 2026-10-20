@@ -127,3 +127,10 @@ python3 -m http.server 8907
 ## License
 
 Content (c) Daniel Ospina. All rights reserved.
+
+## Replacing an image
+
+`_headers` marks `/assets/img/*` as `immutable, max-age=31536000`, so a browser
+that has fetched an image will **never** ask for it again at that URL. Replace it
+under a **new filename** and update the reference — overwriting the bytes in place
+leaves every returning visitor on the old image, with no way to tell why.
