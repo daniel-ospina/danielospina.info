@@ -362,6 +362,41 @@ hr { border: 0; height: 1px; background: var(--rule); margin: 3.5rem 0; }
 .card h3 { margin: 0; }
 .card p { margin: 0; font-size: .9375rem; color: var(--ink-muted); line-height: 1.6; }
 
+/* Published cards — the article image carries the card, so the padding moves
+   inside a body wrapper instead of sitting on the card itself. */
+.card--media { padding: 0; gap: 0; }
+.card--media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 10;
+  object-fit: cover;
+  background: var(--paper-sunk);
+}
+.card--media__body {
+  padding: clamp(1.1rem, 2vw, 1.5rem);
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+.card--media__kicker {
+  font-family: var(--mono);
+  font-size: .68rem;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: var(--coral-ink);
+}
+.card--media:hover img { opacity: .88; }
+.card--media img { transition: opacity .2s ease; }
+
+/* A wordmark has no bleed to fill the frame with — contain it and let the
+   card's own paper show through, so it reads as intentional, not starved. */
+.card--media--logo img {
+  object-fit: contain;
+  padding: clamp(1.6rem, 4vw, 3rem);
+  background: var(--paper);
+}
+
 /* --------------------------------------------------------------- list ---- */
 .ext-arrow {
   font-family: var(--mono);
@@ -683,3 +718,145 @@ hr { border: 0; height: 1px; background: var(--rule); margin: 3.5rem 0; }
   .nav, .footer, .btn-row { display: none; }
   body { background: #fff; color: #000; }
 }
+
+/* Quote band — a real portrait, subject on the right third, words on the left.
+   A left-to-right scrim keeps the type legible without flattening the photo. */
+.quote-band {
+  position: relative;
+  max-width: 1200px;
+  margin: clamp(2rem, 5vw, 3.5rem) auto;
+  overflow: hidden;
+  border-radius: 2px;
+  background: #14110f;
+}
+.quote-band img {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  object-position: 72% 50%;
+}
+.quote-band::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(95deg, rgba(12,10,9,.90) 0%, rgba(12,10,9,.72) 38%, rgba(12,10,9,.18) 62%, rgba(12,10,9,0) 82%);
+}
+.quote-band blockquote {
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: .9rem;
+  margin: 0;
+  padding: clamp(1.5rem, 5vw, 4rem);
+  max-width: 36ch;
+  color: #f7f2ea;
+  font-family: var(--display);
+  font-size: clamp(1.05rem, 2.1vw, 1.65rem);
+  line-height: 1.38;
+  font-style: italic;
+  text-wrap: pretty;
+}
+.quote-band cite {
+  font-family: var(--mono);
+  font-style: normal;
+  font-size: .7rem;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: rgba(247,242,234,.72);
+}
+@media (max-width: 640px) {
+  .quote-band img { aspect-ratio: 3 / 4; object-position: 70% 30%; }
+  .quote-band::after { background: linear-gradient(180deg, rgba(12,10,9,.35) 0%, rgba(12,10,9,.88) 55%); }
+  .quote-band blockquote { justify-content: flex-end; max-width: none; font-size: 1rem; }
+}
+
+/* Square portrait on the About page. */
+.photo--portrait img {
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 2px;
+}
+
+/* The book — cover beside a short blurb. Cover is square and small on purpose:
+   it credits the work without turning the home page into a storefront. */
+.book {
+  display: grid;
+  grid-template-columns: minmax(150px, 220px) minmax(0, 1fr);
+  gap: clamp(1.5rem, 4vw, 3rem);
+  align-items: center;
+}
+.book__cover img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: 2px;
+  box-shadow: 0 10px 30px rgba(20, 17, 15, .16);
+  transition: transform .25s var(--ease);
+}
+.book__cover:hover img { transform: translateY(-2px); }
+.book__body h3 {
+  font-family: var(--display);
+  font-size: clamp(1.4rem, 2.6vw, 2rem);
+  margin: .2rem 0 .1rem;
+}
+.book__sub {
+  font-family: var(--mono);
+  font-size: .74rem;
+  letter-spacing: .06em;
+  color: var(--ink-muted);
+  margin: 0 0 .9rem;
+}
+.book__by {
+  font-size: .9375rem;
+  color: var(--ink-muted);
+  margin: 0 0 1.1rem;
+}
+@media (max-width: 640px) {
+  .book { grid-template-columns: 130px minmax(0, 1fr); align-items: start; }
+}
+
+/* Featured essay — a text card, deliberately without the article's title-card
+   image, which would repeat the headline verbatim. Ink ground makes it read as
+   the newest thing on the page. */
+.card--feature {
+  background: #14110f;
+  color: #f7f2ea;
+  gap: .8rem;
+  justify-content: space-between;
+}
+.card--feature .card__kicker {
+  font-family: var(--mono);
+  font-size: .68rem;
+  letter-spacing: .13em;
+  text-transform: uppercase;
+  color: #e2705a;
+}
+.card--feature h3 {
+  font-family: var(--display);
+  font-size: clamp(1.25rem, 2.2vw, 1.6rem);
+  line-height: 1.25;
+  margin: 0;
+  color: #f7f2ea;
+}
+.card--feature p {
+  margin: 0;
+  font-size: .9375rem;
+  line-height: 1.6;
+  color: rgba(247, 242, 234, .72);
+}
+.card--feature .card__more {
+  font-family: var(--mono);
+  font-size: .7rem;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  color: #f7f2ea;
+  border-bottom: 1px solid rgba(247, 242, 234, .35);
+  padding-bottom: .25rem;
+  align-self: flex-start;
+}
+.card--feature:hover .card__more { border-bottom-color: #f7f2ea; }
