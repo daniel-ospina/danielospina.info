@@ -25,6 +25,7 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import pathlib
 import subprocess
 import sys
@@ -75,9 +76,15 @@ def call(method: str, path: str, token: str, body: dict | None = None):
 
 
 def account_id(token: str) -> str:
+    # A token scoped to Pages + DNS cannot list accounts (that needs Account:Read,
+    # which this one deliberately does not carry), so take the id from the
+    # environment when it is known and only fall back to discovery.
+    env = os.environ.get("CLOUDFLARE_ACCOUNT_ID", "").strip()
+    if env:
+        return env
     accounts = call("GET", "/accounts?per_page=50", token)
     if not accounts:
-        sys.exit("this token cannot see any account")
+        sys.exit("cannot enumerate accounts with this token — set CLOUDFLARE_ACCOUNT_ID")
     if len(accounts) > 1:
         print("multiple accounts visible; using the first — verify this is the right one:")
         for a in accounts:
