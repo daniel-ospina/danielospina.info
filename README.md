@@ -16,7 +16,6 @@ about/index.html           About / biography
 speaking/index.html        Speaking, testimonials, talk list
 writing/index.html         Blog index (Tortoise blog + 2018 archive)
 writing/<slug>/index.html  One directory per post
-newsletter/index.html      Newsletter signup
 book/index.html            Contact / booking
 404.html                   Not-found page
 
@@ -74,7 +73,8 @@ they reserve space and stop the page jumping as images load.
 
 `/book/` lists the address directly (`daniel.ospinabotero@gmail.com`) and, with no
 mail provider connected, the form opens the visitor's mail app pre-filled rather
-than pretending to send. `/newsletter/` has no list behind it yet, so it says so.
+than pretending to send. There is no newsletter — the page was removed rather than
+left up collecting addresses nothing was sending to.
 
 To connect the form to a provider, add the endpoint to the `<form>`:
 
@@ -93,6 +93,22 @@ Hosted on **Cloudflare Pages**, connected to this GitHub repo. Every push to
 `main` deploys to production. No build command, no output directory — Cloudflare
 serves the repo root.
 
+To deploy the working tree directly (before pushing):
+
+```bash
+./scripts/deploy.sh
+```
+
+That script is not just a wrapper. Pages pins `Cache-Control` on `.css`, `.js` and
+`.woff2` to four hours and **ignores `_headers` for those extensions** (verified
+2026-10-20: a rule for `/assets/css/*`, and even one for the exact filename, both
+came back as `max-age=14400`; the `/assets/img/*` rule does apply, so it is
+extension-based). Unversioned, a stylesheet change takes up to four hours to reach
+returning visitors — and the person verifying the deploy sees the old sheet and
+concludes the fix failed. `deploy.sh` appends a content hash to the stylesheet and
+script URLs in the uploaded copy (`site.css?v=56fb9baefa`); the repo keeps plain
+URLs.
+
 `www.danielospina.info` redirects to the apex (`danielospina.info`) via a
 Cloudflare Redirect Rule, so old `www` links land on the right pages.
 
@@ -107,7 +123,7 @@ python3 -m http.server 8907
 
 ## Outstanding
 
-- [ ] **Contact + newsletter endpoints.** The address works today via `mailto:`;
+- [ ] **Contact endpoint.** The address works today via `mailto:`;
       a hosted form (Formspree, Web3Forms, Basin…) would avoid the mail-app hop
       and give spam filtering. See *Forms* above.
 - [ ] **Decide whether the address stays public.** It is currently visible on

@@ -8,8 +8,7 @@
 /assets/img/*
   Cache-Control: public, max-age=31536000, immutable
 
-/assets/css/*
-  Cache-Control: public, max-age=300, must-revalidate
-
-/assets/js/*
-  Cache-Control: public, max-age=300, must-revalidate
+# Cache-Control on .css / .js / .woff2 is pinned to 4 hours by Pages itself and
+# cannot be set here — a rule for these paths is silently ignored. scripts/deploy.sh
+# fingerprints the stylesheet and script URLs instead. Only images can be given a
+# long cache from this file.
