@@ -89,15 +89,22 @@ Basin, Netlify Forms…).
 
 ## Deployment
 
-Hosted on **Cloudflare Pages**, connected to this GitHub repo. Every push to
-`main` deploys to production. No build command, no output directory — Cloudflare
-serves the repo root.
-
-To deploy the working tree directly (before pushing):
+Hosted on **Cloudflare Pages** as a *direct upload* project: it is not connected to
+this GitHub repo, so **pushing does not deploy**. A push saves the source; the site
+only changes when something uploads a build.
 
 ```bash
 ./scripts/deploy.sh
 ```
+
+Run that after committing. It uploads the working tree to the `danielspina-info`
+project (requires `wrangler` logged in, or `CLOUDFLARE_API_TOKEN` set).
+
+If you would rather have pushes deploy automatically, connect the repo once in the
+Cloudflare dashboard (*Workers & Pages → danielspina-info → Settings → Build →
+Connect to Git*), which asks you to authorise Cloudflare's GitHub app. Then no
+token lives in this repo and no CI workflow is needed. This repo is public, which
+is exactly why no deploy token is stored in it.
 
 That script is not just a wrapper. Pages pins `Cache-Control` on `.css`, `.js` and
 `.woff2` to four hours and **ignores `_headers` for those extensions** (verified
