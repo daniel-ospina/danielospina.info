@@ -12,7 +12,8 @@
 /contact-bedford.html /book/    301
 
 /speaking.html   /speaking/     301
-/newsletter.html /newsletter/   301
+/newsletter.html /   301
+/newsletter/     /   301
 
 /new-blog        /writing/      301
 /new-blog.html   /writing/      301
